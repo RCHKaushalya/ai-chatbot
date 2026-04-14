@@ -1,9 +1,13 @@
 from responses import responses
+from nlp_utils import preprocess_text
 
 def get_response(user_input):
-    user_input = user_input.lower()
+    tokens = preprocess_text(user_input)
+    
+    cleaned_input = ' '.join(tokens)
 
-    if user_input in responses:
-        return responses[user_input]
+    for key in responses:
+        if key in cleaned_input:
+            return responses[key]
 
     return "Sorry, I don't understand that yet."
